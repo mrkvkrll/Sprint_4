@@ -34,6 +34,10 @@ class TestBooksCollector:
         all_books = add_books.get_books_genre()
         assert len(all_books) == 6
 
+    def test_get_books_for_children_fantasy_exists(self, add_books):
+        childeren_books = add_books.get_books_for_children()
+        assert 'Дюна' in childeren_books
+
 
     def test_get_books_for_children_horor_not_exists(self, add_books):
         childeren_books = add_books.get_books_for_children()
@@ -41,7 +45,7 @@ class TestBooksCollector:
 
 
     def test_add_book_in_favorites_book_not_exists__not_added(self,collector):
-        assert collector.add_book_in_favorites('Властелин колец') == None
+        assert collector.add_book_in_favorites('Властелин колец') is None
 
 
     def test_add_book_in_favorites_book_exists_added(self, add_book_in_favorites):
@@ -53,8 +57,11 @@ class TestBooksCollector:
         assert 'Властелин колец' not in add_book_in_favorites.favorites
 
 
-    def test_get_list_of_favorites_zero_books_clear(self,collector):
-        assert collector.get_list_of_favorites_books() == []
+    def test_get_list_of_favorites_exists_books_added(self,add_books):
+        favorite_books = ['Властелин колец', 'Чапаев и Пустота', 'Отель у погибшего альпиниста']
+        for name in favorite_books:
+            add_books.add_book_in_favorites(name)
+        assert add_books.get_list_of_favorites_books() == favorite_books
 
 
 
