@@ -64,12 +64,6 @@ class TestBooksCollector:
             add_books.add_book_in_favorites(name)
         assert add_books.get_list_of_favorites_books() == favorite_books
 
-        def test_get_list_of_favorites_exist_book_added(self,add_books):
-        favorite_books = ['Властелин колец']
-        for name in favorite_books:
-            add_books.add_book_in_favorites(name)
-        assert add_books.get_list_of_favorites_books() == favorite_books
-
 
 
         
