@@ -44,8 +44,9 @@ class TestBooksCollector:
         assert 'Оно' not in childeren_books
 
 
-    def test_add_book_in_favorites_book_not_exists__not_added(self,collector):
-        assert collector.add_book_in_favorites('Властелин колец') is None
+    def test_add_book_in_favorites_same_book_no_duplicate(self, add_book_in_favorites):
+        add_book_in_favorites.add_book_in_favorites('Властелин колец')
+        assert add_book_in_favorites.favorites.count('Властелин колец') == 1
 
 
     def test_add_book_in_favorites_book_exists_added(self, add_book_in_favorites):
@@ -59,6 +60,12 @@ class TestBooksCollector:
 
     def test_get_list_of_favorites_exists_books_added(self,add_books):
         favorite_books = ['Властелин колец', 'Чапаев и Пустота', 'Отель у погибшего альпиниста']
+        for name in favorite_books:
+            add_books.add_book_in_favorites(name)
+        assert add_books.get_list_of_favorites_books() == favorite_books
+
+        def test_get_list_of_favorites_exist_book_added(self,add_books):
+        favorite_books = ['Властелин колец']
         for name in favorite_books:
             add_books.add_book_in_favorites(name)
         assert add_books.get_list_of_favorites_books() == favorite_books
